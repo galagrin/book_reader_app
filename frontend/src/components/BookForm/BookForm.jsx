@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addBook } from "../../redux/books/actionCreators";
-import booksData from "../../data/books.json";
-import createBookWithId from "../../utils/createBookWithId";
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addBook } from '../../redux/books/actionCreators';
+import booksData from '../../data/books.json';
+import createBookWithId from '../../utils/createBookWithId';
 
-import "./BookForm.css";
+import './BookForm.css';
 
 const BookForm = () => {
-    const [title, setTitle] = useState("");
-    const [author, setAuthor] = useState("");
+    const [title, setTitle] = useState('');
+    const [author, setAuthor] = useState('');
     const dispatch = useDispatch();
 
     const handleSubmit = (e) => {
@@ -17,8 +17,8 @@ const BookForm = () => {
         if (title && author) {
             const book = createBookWithId({ title, author });
             dispatch(addBook(book));
-            setTitle("");
-            setAuthor("");
+            setTitle('');
+            setAuthor('');
         }
     };
 
@@ -37,21 +37,11 @@ const BookForm = () => {
             <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="title">Title:</label>
-                    <input
-                        type="text"
-                        id="title"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                    />
+                    <input type="text" id="title" value={title} onChange={(e) => setTitle(e.target.value)} />
                 </div>
                 <div>
                     <label htmlFor="author">Author:</label>
-                    <input
-                        type="text"
-                        id="author"
-                        value={author}
-                        onChange={(e) => setAuthor(e.target.value)}
-                    />
+                    <input type="text" id="author" value={author} onChange={(e) => setAuthor(e.target.value)} />
                 </div>
                 <button type="submit">Add Book</button>
                 <button type="button" onClick={handleAddRandomBook}>

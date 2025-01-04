@@ -9,7 +9,7 @@
     text-align: center;
 }
 
-.filter input[type="text"] {
+.filter input[type='text'] {
     width: 80%;
     padding: 8px;
     border: 1px solid #ccc;
@@ -30,7 +30,9 @@
 .filter button:hover {
     background-color: #609f9c;
 }
-
+input[type='checkbox'] {
+    accent-color: #609f9c;
+}
 @media screen and (max-width: 1024px) {
     .filter-row {
         flex-direction: column;

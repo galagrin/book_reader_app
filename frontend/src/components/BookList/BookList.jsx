@@ -1,18 +1,16 @@
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { BsBookmarkHeart, BsBookmarkHeartFill } from "react-icons/bs";
-import { deleteBook, toggleFavorite } from "../../redux/books/actionCreators";
-import {
-    selectTitleFilter,
-    selectAuthorFilter,
-} from "../../redux/slices/filterSlice";
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { BsBookmarkHeart, BsBookmarkHeartFill } from 'react-icons/bs';
+import { deleteBook, toggleFavorite } from '../../redux/books/actionCreators';
+import { selectTitleFilter, selectAuthorFilter, selectOnlyFavoriteFilter } from '../../redux/slices/filterSlice';
 
-import "./BookList.css";
+import './BookList.css';
 
 const BookList = () => {
     const books = useSelector((state) => state.books);
     const titleFilter = useSelector(selectTitleFilter);
     const authorFilter = useSelector(selectAuthorFilter);
+    const onlyFavoriteFilter = useSelector(selectOnlyFavoriteFilter);
 
     const dispatch = useDispatch();
 
@@ -25,15 +23,12 @@ const BookList = () => {
     };
 
     const filteredBooks = books.filter((book) => {
-        const matchesTitle = book.title
-            .toLowerCase()
-            .includes(titleFilter.toLowerCase());
+        const matchesTitle = book.title.toLowerCase().includes(titleFilter.toLowerCase());
 
-        const matchesAuthor = book.author
-            .toLowerCase()
-            .includes(authorFilter.toLowerCase());
+        const matchesAuthor = book.author.toLowerCase().includes(authorFilter.toLowerCase());
 
-        return matchesTitle && matchesAuthor;
+        const matchesFavorite = onlyFavoriteFilter ? book.isFavorite : true;
+        return matchesTitle && matchesAuthor && matchesFavorite;
     });
 
     return (
@@ -46,15 +41,10 @@ const BookList = () => {
                     {filteredBooks.map((book, index) => (
                         <li key={book.id}>
                             <div className="book-info">
-                                {++index}. {book.title} by{" "}
-                                <strong>{book.author}</strong>
+                                {++index}. {book.title} by <strong>{book.author}</strong>
                             </div>
                             <div className="book-actions">
-                                <span
-                                    onClick={() =>
-                                        handleToggleFavorite(book.id)
-                                    }
-                                >
+                                <span onClick={() => handleToggleFavorite(book.id)}>
                                     {book.isFavorite ? (
                                         <BsBookmarkHeartFill className="star-icon" />
                                     ) : (
@@ -62,11 +52,7 @@ const BookList = () => {
                                     )}
                                 </span>
 
-                                <button
-                                    onClick={() => handleDeleteBook(book.id)}
-                                >
-                                    delete
-                                </button>
+                                <button onClick={() => handleDeleteBook(book.id)}>delete</button>
                             </div>
                         </li>
                     ))}
