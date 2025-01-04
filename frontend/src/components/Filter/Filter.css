@@ -30,9 +30,11 @@
 .filter button:hover {
     background-color: #609f9c;
 }
+
 input[type='checkbox'] {
     accent-color: #609f9c;
 }
+
 @media screen and (max-width: 1024px) {
     .filter-row {
         flex-direction: column;
