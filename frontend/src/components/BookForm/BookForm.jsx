@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addBook, fetchBook } from '../../redux/slices/booksSlice';
+import { setError } from '../../redux/slices/errorSlice';
 import booksData from '../../data/books.json';
 import createBookWithId from '../../utils/createBookWithId';
 
@@ -18,6 +19,8 @@ const BookForm = () => {
             dispatch(addBook(book));
             setTitle('');
             setAuthor('');
+        } else {
+            dispatch(setError('Please, fill all fields!'));
         }
     };
 
