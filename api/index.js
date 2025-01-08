@@ -16,11 +16,11 @@ app.get("/random-book", (req, res) => {
     res.json(getRandomBook());
 });
 
-// app.get("/random-book-delayed", (req, res) => {
-//     setTimeout(() => {
-//         res.json(getRandomBook());
-//     }, 2000);
-// });
+app.get("/random-book-delayed", (req, res) => {
+    setTimeout(() => {
+        res.json(getRandomBook());
+    }, 2000);
+});
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => {
